@@ -11,11 +11,12 @@
 
 return [
     '__pattern__' => [
+        'id' => '\d+',
         'name' => '\w+',
     ],
-    '[hello]'     => [
-        ':id'   => ['index/hello', ['method' => 'get'], ['id' => '\d+']],
-        ':name' => ['index/hello', ['method' => 'post']],
-    ],
-
+    '' => 'index/index/index',
+    'message/get' => 'index/message/get',
+    'message/post' => 'index/message/post',
+    'wechat/login' => 'index/wechat/login',
+    'wechat/authcallback' => 'index/wechat/authcallback',
 ];
