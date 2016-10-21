@@ -10,12 +10,13 @@ namespace app\index\controller;
 
 
 use app\index\model\MessageModel;
+use app\index\model\WechatUserModel;
 use app\index\Utils;
 use think\Controller;
 
 class Message extends Controller
 {
-    public function get($wallid = -1, $time = 0, $limit = 10, $poll = false)
+    public function get($wallid = -1, $offset = 0, $limit = 10, $poll = false)
     {
         $wallid = Utils::checkWallId($wallid);
         if ($wallid <= 0) {
@@ -23,13 +24,24 @@ class Message extends Controller
         }
         do {
             $list = MessageModel::where('wallid', $wallid)
-                ->where('time', '>=', $time)
-                ->field(['id', 'time', 'content'])
+                ->where('id', '>', $offset)
+                ->field(['id', 'openid', 'content'])
                 ->order('id desc')
                 ->limit($limit)
                 ->select();
         } while ($poll && sizeof($list) == 0 && sleep(1) == 0);
-        return json($list);
+        $result = [];
+        foreach ($list as $message) {
+            $user = WechatUserModel::get($message->openid);
+            $result[] = [
+                'id' => $message->id,
+                'content' => htmlspecialchars($message->content),
+                'headimgurl' => ($user && !empty($user->headimgurl)) ? $user->headimgurl : config('static_path').'/nohead.jpg',
+                'nickname' => $user ? $user->nickname : '微信用户',
+                'sex' => $user ? $user->sex : 2,
+            ];
+        }
+        return json(['success' => true, 'messages' => $result]);
     }
 
     public function post($wallid = -1)

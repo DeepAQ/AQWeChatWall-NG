@@ -22,7 +22,7 @@
         {volist name="list" id="message"}
         <section>
             <div>{$message.time|date='Y-m-d H:i:s',###}</div>
-            <div>{$message.content}</div>
+            <div>{$message.content|htmlspecialchars}</div>
         </section>
         {/volist}
     </div>

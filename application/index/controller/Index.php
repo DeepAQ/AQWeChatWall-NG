@@ -8,7 +8,7 @@ use think\Controller;
 
 class Index extends Controller
 {
-    public function index($wallid = -1)
+    public function mobile($wallid = -1)
     {
         $wallid = Utils::checkWallId($wallid);
         if ($wallid <= 0) {
@@ -16,7 +16,7 @@ class Index extends Controller
         }
         $openid = $this->request->session('openid');
         if (!$openid) {
-            $this->redirect('/wechat/login');
+            return $this->redirect('/wechat/login');
         } else {
             $this->view->replace([
                 '__STATIC__' => config('static_path')
@@ -31,5 +31,18 @@ class Index extends Controller
             );
             return $this->fetch('index/mobile');
         }
+    }
+
+    public function screen($wallid = -1)
+    {
+        $wallid = Utils::checkWallId($wallid);
+        if ($wallid <= 0) {
+            $this->error('微信墙活动不在进行中', '/');
+        }
+        $this->view->replace([
+            '__STATIC__' => config('static_path')
+        ]);
+        $this->assign('wall', WallConfigModel::get($wallid));
+        return $this->fetch('index/screen');
     }
 }

@@ -11,10 +11,12 @@
 
 return [
     '__pattern__' => [
-        'id' => '\d+',
-        'name' => '\w+',
+        'wallid' => '\d+',
     ],
-    '' => 'index/index/index',
+
+    '/[:wallid]$' => 'index/index/mobile',
+    'm/[:wallid]' => 'index/index/mobile',
+    'screen/[:wallid]' => 'index/index/screen',
     'message/get' => 'index/message/get',
     'message/post' => 'index/message/post',
     'wechat/login' => 'index/wechat/login',
