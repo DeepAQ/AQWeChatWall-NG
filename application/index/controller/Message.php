@@ -36,10 +36,15 @@ class Message extends Controller
         if (!$openid) {
             return json(['success' => false, 'error' => '未登录', 'relogin' => true]);
         }
+        // check content
         $content = trim($this->request->post('content'));
         if ($wallid <= 0 || empty($content)) {
             return json(['success' => false, 'error' => '参数不正确']);
         }
+        if (mb_strlen($content) > 200) {
+            return json(['success' => false, 'error' => '内容有点长，请缩短后再发送']);
+        }
+        // add message
         $result = MessageModel::create([
             'wallid' => $wallid,
             'time' => time(),
@@ -47,6 +52,7 @@ class Message extends Controller
             'openid' => $openid,
             'content' => $content,
         ]);
+        // return
         if ($result) {
             return json(['success' => true]);
         } else {
