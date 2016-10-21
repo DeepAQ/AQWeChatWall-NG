@@ -17,7 +17,7 @@ class Message extends Controller
 {
     public function get($wallid = -1, $time = 0, $limit = 10, $poll = false)
     {
-        $wallid = Utils::checkWallId();
+        $wallid = Utils::checkWallId($wallid);
         if ($wallid <= 0) {
             return json(['success' => false, 'error' => '参数不正确']);
         }
@@ -34,7 +34,7 @@ class Message extends Controller
 
     public function post($wallid = -1)
     {
-        $wallid = Utils::checkWallId();
+        $wallid = Utils::checkWallId($wallid);
         $openid = $this->request->session('openid');
         if (!$openid) {
             return json(['success' => false, 'error' => '未登录', 'relogin' => true]);

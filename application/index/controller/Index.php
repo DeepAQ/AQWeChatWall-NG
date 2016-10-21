@@ -10,7 +10,7 @@ class Index extends Controller
 {
     public function index($wallid = -1)
     {
-        $wallid = Utils::checkWallId();
+        $wallid = Utils::checkWallId($wallid);
         if ($wallid <= 0) {
             $this->error('微信墙活动不在进行中', '/');
         }
