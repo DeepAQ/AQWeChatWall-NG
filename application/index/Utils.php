@@ -39,7 +39,7 @@ class Utils
             }
         } else {
             $count = WallConfigModel::where('id', $wallid)->where('active', 1)->count();
-            if ($count === 1) {
+            if ($count == 1) {
                 return $wallid;
             } else {
                 return -1;
