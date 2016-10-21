@@ -13,12 +13,12 @@ $(function () {
             alert('内容有点长，请缩短后再发送');
         } else {
             $(this).addClass('disabled');
-            $.post('/message/post',
+            $.post('/message/post' + (wall_id ? '/wallid/'+wall_id : ''),
                 {'content': content},
                 function (resp, status) {
                     if (status == 'success') {
                         if (resp.success) {
-                            localStorage.saved_content = null;
+                            localStorage.removeItem('saved_content');
                             location.reload();
                         } else {
                             if (resp.relogin) {
