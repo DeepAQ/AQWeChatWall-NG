@@ -15,17 +15,20 @@ use think\Controller;
 
 class Message extends Controller
 {
-    public function get($wallid = -1, $count = 10)
+    public function get($wallid = -1, $time = 0, $limit = 10, $poll = false)
     {
         $wallid = Utils::checkWallId();
         if ($wallid <= 0) {
             return json(['success' => false, 'error' => '参数不正确']);
         }
-        $list = MessageModel::where('wallid', $wallid)
-            ->field(['time', 'content'])
-            ->order('time desc')
-            ->limit($count)
-            ->select();
+        do {
+            $list = MessageModel::where('wallid', $wallid)
+                ->where('time', '>=', $time)
+                ->field(['id', 'time', 'content'])
+                ->order('id desc')
+                ->limit($limit)
+                ->select();
+        } while ($poll && sizeof($list) == 0 && sleep(1) == 0);
         return json($list);
     }
 
