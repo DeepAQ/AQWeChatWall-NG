@@ -8,6 +8,11 @@ use think\Controller;
 
 class Index extends Controller
 {
+    public function index()
+    {
+        $this->redirect("/m");
+    }
+
     public function mobile($wallid = -1)
     {
         $wallid = Utils::checkWallId($wallid);
