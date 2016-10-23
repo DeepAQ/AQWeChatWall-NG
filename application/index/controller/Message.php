@@ -22,7 +22,12 @@ class Message extends Controller
         if ($wallid <= 0) {
             return json(['success' => false, 'error' => '参数不正确']);
         }
+        // start getting/polling messages
+        $start_time = time();
         do {
+            if ($poll && time()-$start_time>=60) {
+                break;
+            }
             $list = MessageModel::where('wallid', $wallid)
                 ->where('id', '>', $offset)
                 ->field(['id', 'openid', 'content'])
@@ -30,6 +35,7 @@ class Message extends Controller
                 ->limit($limit)
                 ->select();
         } while ($poll && sizeof($list) == 0 && sleep(1) == 0);
+        // prepare results
         $result = [];
         foreach ($list as $message) {
             $user = WechatUserModel::get($message->openid);

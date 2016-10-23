@@ -24,7 +24,8 @@ class Index extends Controller
             return $this->redirect('/wechat/login');
         } else {
             $this->view->replace([
-                '__STATIC__' => config('static_path')
+                '__STATIC__' => config('static_path'),
+                '__TITLE__' => config('app_title'),
             ]);
             $this->assign('wall', WallConfigModel::get($wallid));
             $this->assign('list',
@@ -45,7 +46,8 @@ class Index extends Controller
             $this->error('微信墙活动不在进行中', '/');
         }
         $this->view->replace([
-            '__STATIC__' => config('static_path')
+            '__STATIC__' => config('static_path'),
+            '__TITLE__' => config('app_title'),
         ]);
         $this->assign('wall', WallConfigModel::get($wallid));
         return $this->fetch('index/screen');
