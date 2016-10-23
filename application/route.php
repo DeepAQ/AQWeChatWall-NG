@@ -21,4 +21,6 @@ return [
     'message/post' => 'index/message/post',
     'wechat/login' => 'index/wechat/login',
     'wechat/authcallback' => 'index/wechat/authcallback',
+
+    'manage' => 'index/manage/index',
 ];
