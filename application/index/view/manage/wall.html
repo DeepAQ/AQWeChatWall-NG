@@ -2,27 +2,73 @@
 {block name="page_id"}wall{/block}
 {block name="subtitle"}活动列表{/block}
 {block name="main"}
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>#</th>
-            <th>微信墙名称</th>
-            <th>状态</th>
-            <th>操作</th>
-        </tr>
-    </thead>
-    <tbody>
+<div class="container-fluid">
+    {$op_result == 1 ? '<div class="alert alert-success">
+        <strong>Operation succeeded.</strong>
+    </div>' : ''}
+    {$op_result == 2 ? '<div class="alert alert-danger">
+        <strong>Operation failed:</strong> Please try again later.
+    </div>' : ''}
+    <div class="row">
+        <div class="col-xs-8">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <span class="glyphicon glyphicon-list"></span>&nbsp;微信墙列表
+                </div>
+                <div class="panel-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>微信墙名称</th>
+                                <th>状态</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
 {volist name="list" id="wall"}
-    <tr>
-        <td>{$wall.id}</td>
-        <td>{$wall.name}</td>
-        <td>
-            {$wall.active == 0 ? '<span class="label label-default"><span class="glyphicon glyphicon-remove"></span>&nbsp;关闭</span>' : '<span class="label label-success"><span class="glyphicon glyphicon-ok"></span>&nbsp;开启</span>'}
-        <td>
-            {$wall.active == 0 ? '<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-play"></span> &nbsp;开启微信墙</button>' : '<button class="btn btn-xs btn-warning"><span class="glyphicon glyphicon-pause"></span>&nbsp;关闭微信墙</button>'}
-            <button class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-arrow-right"></span>&nbsp;消息管理</button>
-        </td>
-    </tr>
+                        <tr>
+                            <td>{$wall.id}</td>
+                            <td>{$wall.name|htmlspecialchars}</td>
+                            <td>
+                                {$wall.active ?
+                                '<span class="label label-success"><span class="glyphicon glyphicon-ok"></span>&nbsp;开启</span>' :
+                                '<span class="label label-default"><span class="glyphicon glyphicon-remove"></span>&nbsp;关闭</span>'}
+                            <td>
+                                <form method="post" action="?op=toggle">
+                                    <input type="hidden" name="wallid" value="{$wall.id}">
+                                    {$wall.active ?
+                                    '<button type="submit" class="btn btn-xs btn-warning"><span class="glyphicon glyphicon-pause"></span>&nbsp;关闭微信墙</button>' :
+                                    '<button type="submit" class="btn btn-xs btn-info"><span class="glyphicon glyphicon-play"></span>&nbsp;开启微信墙</button>'}
+                                    <button type="button" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-arrow-right"></span>&nbsp;消息管理</button>
+                                </form>
+                            </td>
+                        </tr>
 {/volist}
-</table>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-4">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <span class="glyphicon glyphicon-plus"></span>&nbsp;新建微信墙
+                </div>
+                <div class="panel-body">
+                    <form method="post" action="?op=add">
+                        <div class="form-group">
+                            <label for="name">微信墙名称</label>
+                            <input type="text" name="name" id="name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="background">背景图文件名</label>
+                            <input type="text" name="background" id="background" class="form-control" placeholder="（可选）">
+                        </div>
+                        <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>&nbsp;新建</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {/block}

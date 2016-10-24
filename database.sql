@@ -7,7 +7,7 @@ SET NAMES utf8mb4;
 
 CREATE TABLE `wall_config` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `active` tinyint(4) NOT NULL DEFAULT '1',
+  `active` tinyint(4) NOT NULL DEFAULT '0',
   `name` varchar(255) NOT NULL,
   `background` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)

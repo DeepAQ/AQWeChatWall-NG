@@ -41,7 +41,32 @@ class Manage extends Controller
     public function wall()
     {
         $this->checkLogin();
-        $this->assign('list', WallConfigModel::all());
+        switch ($this->request->get('op')) {
+            case 'toggle':
+                $wall = WallConfigModel::get($this->request->post('wallid'));
+                $this->assign('op_result', 2);
+                if ($wall) {
+                    $wall->active = 1 - $wall->active;
+                    if ($wall->save()) {
+                        $this->assign('op_result', 1);
+                    }
+                }
+                break;
+            case 'add':
+                $result = WallConfigModel::create([
+                    'name' => $this->request->post('name'),
+                    'background' => $this->request->post('background'),
+                ]);
+                if ($result) {
+                    $this->assign('op_result', 1);
+                } else {
+                    $this->assign('op_result', 2);
+                }
+                break;
+        }
+        $this->assign('list', WallConfigModel::all(function ($query) {
+            $query->order('id desc');
+        }));
         return $this->fetchTemplate('manage/wall');
     }
 

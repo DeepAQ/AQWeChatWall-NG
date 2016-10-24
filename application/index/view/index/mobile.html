@@ -12,7 +12,7 @@
     </script>
 </head>
 <body>
-    <header>{$wall.name}</header>
+    <header>{$wall.name|htmlspecialchars}</header>
     <div class="wrapper">
         <textarea id="content"></textarea>
         <div id="btn_send">发送</div>
