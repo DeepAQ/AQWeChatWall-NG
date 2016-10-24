@@ -1,0 +1,39 @@
+{extend name="manage/base" /}
+{block name="page_id"}user{/block}
+{block name="subtitle"}用户管理{/block}
+{block name="main"}
+<div class="container-fluid">
+    <div class="alert alert-success">
+    <form method="get" class="form-inline">
+        <label for="kw">Keyword:</label>
+        <input type="text" name="search" id="kw" class="form-control input-sm" required>
+        <button type="submit" class="btn btn-sm btn-default">
+            <span class="glyphicon glyphicon-search"></span>&nbsp;Search
+        </button>
+    </form>
+    </div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>昵称</th>
+                <th>性别</th>
+                <th>地区</th>
+                <th>选项</th>
+            </tr>
+        </thead>
+        <tbody>
+{volist name="list" id="user"}
+        <tr>
+            <td>{$user.nickname|htmlspecialchars}</td>
+            <td>{switch name="user.sex"}{case value="1"}男{/case}{case value="2"}女{/case}{default /}未设置{/switch}</td>
+            <td>{$user.country} {$user.province} {$user.city}</td>
+            <td>
+                <a href="{$user.headimgurl}" target="_blank">头像</a>
+                <a href="javascript:" onclick="prompt('OpenID', '{$user.openid}')">OpenID</a>
+            </td>
+        </tr>
+{/volist}
+    </table>
+{$list->render()}
+</div>
+{/block}

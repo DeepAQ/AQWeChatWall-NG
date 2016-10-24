@@ -10,6 +10,7 @@ namespace app\index\controller;
 
 
 use app\index\model\WallConfigModel;
+use app\index\model\WechatUserModel;
 use think\Controller;
 use think\Session;
 
@@ -44,11 +45,11 @@ class Manage extends Controller
         switch ($this->request->get('op')) {
             case 'toggle':
                 $wall = WallConfigModel::get($this->request->post('wallid'));
-                $this->assign('op_result', 2);
+                $this->assign('op_result', false);
                 if ($wall) {
                     $wall->active = 1 - $wall->active;
                     if ($wall->save()) {
-                        $this->assign('op_result', 1);
+                        $this->assign('op_result', true);
                     }
                 }
                 break;
@@ -58,9 +59,9 @@ class Manage extends Controller
                     'background' => $this->request->post('background'),
                 ]);
                 if ($result) {
-                    $this->assign('op_result', 1);
+                    $this->assign('op_result', true);
                 } else {
-                    $this->assign('op_result', 2);
+                    $this->assign('op_result', false);
                 }
                 break;
         }
@@ -68,6 +69,18 @@ class Manage extends Controller
             $query->order('id desc');
         }));
         return $this->fetchTemplate('manage/wall');
+    }
+
+    public function user()
+    {
+        $this->checkLogin();
+        $key = $this->request->get('search');
+        if (!empty($key)) {
+            $this->assign('list', WechatUserModel::where('nickname', 'like', "%$key%")->paginate(15, null, ['query' => ['search' => $key]]));
+        } else {
+            $this->assign('list', WechatUserModel::paginate(15));
+        }
+        return $this->fetchTemplate('manage/user');
     }
 
     private function checkLogin()

@@ -3,12 +3,20 @@
 {block name="subtitle"}活动列表{/block}
 {block name="main"}
 <div class="container-fluid">
-    {$op_result == 1 ? '<div class="alert alert-success">
-        <strong>Operation succeeded.</strong>
-    </div>' : ''}
-    {$op_result == 2 ? '<div class="alert alert-danger">
+{present name="op_result"}
+{switch name="op_result"}
+    {case value="true"}
+    <div class="alert alert-success">
+        <strong>The operation was successful.</strong>
+    </div>
+    {/case}
+    {case value="false"}
+    <div class="alert alert-danger">
         <strong>Operation failed:</strong> Please try again later.
-    </div>' : ''}
+    </div>
+    {/case}
+{/switch}
+{/present}
     <div class="row">
         <div class="col-xs-8">
             <div class="panel panel-primary">

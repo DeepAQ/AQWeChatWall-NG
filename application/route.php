@@ -25,4 +25,5 @@ return [
     'manage' => 'index/manage/index',
     'manage/login' => 'index/manage/login',
     'manage/wall' => 'index/manage/wall',
+    'manage/user' => 'index/manage/user',
 ];
