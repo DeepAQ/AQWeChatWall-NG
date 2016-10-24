@@ -2,7 +2,7 @@
 {block name="page_id"}wall{/block}
 {block name="subtitle"}活动列表{/block}
 {block name="main"}
-<table class="table">
+<table class="table table-striped">
     <thead>
         <tr>
             <th>#</th>
@@ -19,8 +19,8 @@
         <td>
             {$wall.active == 0 ? '<span class="label label-default"><span class="glyphicon glyphicon-remove"></span>&nbsp;关闭</span>' : '<span class="label label-success"><span class="glyphicon glyphicon-ok"></span>&nbsp;开启</span>'}
         <td>
-            {$wall.active == 0 ? '<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-play"></span> &nbsp;开启微信墙</button>' : '<button class="btn btn-xs btn-warning"><span class="glyphicon glyphicon-pause"></span> &nbsp;关闭微信墙</button>'}
-            <button class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-arrow-right"></span> &nbsp;消息管理</button>
+            {$wall.active == 0 ? '<button class="btn btn-xs btn-info"><span class="glyphicon glyphicon-play"></span> &nbsp;开启微信墙</button>' : '<button class="btn btn-xs btn-warning"><span class="glyphicon glyphicon-pause"></span>&nbsp;关闭微信墙</button>'}
+            <button class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-arrow-right"></span>&nbsp;消息管理</button>
         </td>
     </tr>
 {/volist}

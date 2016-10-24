@@ -1,0 +1,23 @@
+{extend name="manage/base" /}
+{block name="page_id"}login{/block}
+{block name="subtitle"}登录{/block}
+{block name="main"}
+{$login_failed == true ? '<section class="alert alert-danger alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong>Login failed:</strong> Please check your password.
+</section>' : ''}
+<section class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">登录到管理控制台</h3>
+    </div>
+    <div class="panel-body">
+        <form method="post">
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" name="password" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-arrow-right"></span>&nbsp;Login</button>
+        </form>
+    </div>
+</section>
+{/block}

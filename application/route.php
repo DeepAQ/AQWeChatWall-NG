@@ -23,4 +23,6 @@ return [
     'wechat/authcallback' => 'index/wechat/authcallback',
 
     'manage' => 'index/manage/index',
+    'manage/login' => 'index/manage/login',
+    'manage/wall' => 'index/manage/wall',
 ];
