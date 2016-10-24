@@ -1,7 +1,7 @@
 body {
     margin: 0;
     font-family: "Pingfang SC", "Heiti SC", "Source Han Sans SC", "Microsoft Yahei", Helvetica, Arial, sans-serif;
-    background: #333333 no-repeat;
+    background: #333333 no-repeat fixed;
     background-size: cover;
 }
 

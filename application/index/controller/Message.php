@@ -43,7 +43,7 @@ class Message extends Controller
                 'id' => $message->id,
                 'content' => htmlspecialchars($message->content),
                 'headimgurl' => ($user && !empty($user->headimgurl)) ? $user->headimgurl : config('static_path').'/nohead.jpg',
-                'nickname' => $user ? $user->nickname : '微信用户',
+                'nickname' => $user ? htmlspecialchars($user->nickname) : '微信用户',
                 'sex' => $user ? $user->sex : 2,
             ];
         }
