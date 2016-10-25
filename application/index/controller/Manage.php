@@ -9,6 +9,7 @@
 namespace app\index\controller;
 
 
+use app\index\model\MessageModel;
 use app\index\model\WallConfigModel;
 use app\index\model\WechatUserModel;
 use think\Controller;
@@ -76,11 +77,27 @@ class Manage extends Controller
         $this->checkLogin();
         $key = $this->request->get('search');
         if (!empty($key)) {
-            $this->assign('list', WechatUserModel::where('nickname', 'like', "%$key%")->paginate(15, null, ['query' => ['search' => $key]]));
+            $this->assign('list', WechatUserModel::where('nickname', 'like', "%$key%")
+                    ->whereOr('openid', 'like', $key)
+                    ->paginate(15, null, ['query' => ['search' => $key]])
+            );
         } else {
             $this->assign('list', WechatUserModel::paginate(15));
         }
         return $this->fetchTemplate('manage/user');
+    }
+
+    public function message($wallid)
+    {
+        $this->checkLogin();
+        if (empty(WallConfigModel::get($wallid))) {
+            return $this->redirect('/manage/wall');
+        }
+        $this->assign('list', MessageModel::where('wallid', $wallid)
+            ->order('id desc')
+            ->paginate(15)
+        );
+        return $this->fetchTemplate('manage/message');
     }
 
     private function checkLogin()

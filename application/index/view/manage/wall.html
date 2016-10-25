@@ -18,7 +18,7 @@
 {/switch}
 {/present}
     <div class="row">
-        <div class="col-xs-8">
+        <div class="col-sm-8">
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <span class="glyphicon glyphicon-list"></span>&nbsp;微信墙列表
@@ -48,7 +48,7 @@
                                     {$wall.active ?
                                     '<button type="submit" class="btn btn-xs btn-warning"><span class="glyphicon glyphicon-pause"></span>&nbsp;关闭微信墙</button>' :
                                     '<button type="submit" class="btn btn-xs btn-info"><span class="glyphicon glyphicon-play"></span>&nbsp;开启微信墙</button>'}
-                                    <button type="button" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-arrow-right"></span>&nbsp;消息管理</button>
+                                    <button type="button" class="btn btn-xs btn-primary" onclick="window.location='/manage/message/'+{$wall.id};"><span class="glyphicon glyphicon-arrow-right"></span>&nbsp;消息管理</button>
                                 </form>
                             </td>
                         </tr>
@@ -57,7 +57,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-xs-4">
+        <div class="col-sm-4">
             <div class="panel panel-success">
                 <div class="panel-heading">
                     <span class="glyphicon glyphicon-plus"></span>&nbsp;新建微信墙

@@ -15,15 +15,16 @@ return [
     ],
 
     '/[:wallid]$' => 'index/index/mobile',
-    'm/[:wallid]' => 'index/index/mobile',
-    'screen/[:wallid]' => 'index/index/screen',
+    'm/[:wallid]$' => 'index/index/mobile',
+    'screen/[:wallid]$' => 'index/index/screen',
     'message/get' => 'index/message/get',
     'message/post' => 'index/message/post',
     'wechat/login' => 'index/wechat/login',
     'wechat/authcallback' => 'index/wechat/authcallback',
 
-    'manage' => 'index/manage/index',
+    'manage/$' => 'index/manage/index',
     'manage/login' => 'index/manage/login',
     'manage/wall' => 'index/manage/wall',
     'manage/user' => 'index/manage/user',
+    'manage/message/:wallid$' => 'index/manage/message',
 ];
