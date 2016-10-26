@@ -3,6 +3,7 @@ namespace app\index\controller;
 
 use app\index\model\MessageModel;
 use app\index\model\WallConfigModel;
+use app\index\model\WechatUserModel;
 use app\index\Utils;
 use think\Controller;
 
@@ -23,10 +24,6 @@ class Index extends Controller
         if (!$openid) {
             return $this->redirect('/wechat/login');
         } else {
-            $this->view->replace([
-                '__STATIC__' => config('static_path'),
-                '__TITLE__' => config('app_title'),
-            ]);
             $this->assign('wall', WallConfigModel::get($wallid));
             $this->assign('list',
                 MessageModel::where('openid', $openid)
@@ -35,7 +32,7 @@ class Index extends Controller
                     ->limit(10)
                     ->select()
             );
-            return $this->fetch('index/mobile');
+            return $this->fetchTemplate('index/mobile');
         }
     }
 
@@ -45,11 +42,36 @@ class Index extends Controller
         if ($wallid <= 0) {
             $this->error('微信墙活动不在进行中', '/');
         }
+        $this->assign('wall', WallConfigModel::get($wallid));
+        return $this->fetchTemplate('index/screen');
+    }
+
+    public function luckydraw($wallid = -1)
+    {
+        $wallid = Utils::checkWallId($wallid);
+        if ($wallid <= 0) {
+            $this->error('微信墙活动不在进行中', '/');
+        }
+        $result = [];
+        $user_list = MessageModel::where('wallid', $wallid)->field('openid')->distinct(1)->select();
+        foreach ($user_list as $wall_user) {
+            $user = WechatUserModel::get($wall_user->openid);
+            if ($user) {
+                $result[] = htmlspecialchars($user->nickname);
+            }
+        }
+        $this->assign('wall', WallConfigModel::get($wallid));
+        $this->assign('userlist', json_encode($result));
+        $this->assign('usertotal', sizeof($result));
+        return $this->fetchTemplate('index/luckydraw');
+    }
+
+    private function fetchTemplate($template)
+    {
         $this->view->replace([
             '__STATIC__' => config('static_path'),
             '__TITLE__' => config('app_title'),
         ]);
-        $this->assign('wall', WallConfigModel::get($wallid));
-        return $this->fetch('index/screen');
+        return $this->fetch($template);
     }
 }

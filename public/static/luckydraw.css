@@ -1,0 +1,55 @@
+body {
+    margin: 0;
+    font-family: "Pingfang SC", "Heiti SC", "Source Han Sans SC", "Microsoft Yahei", Helvetica, Arial, sans-serif;
+    background: #333333 no-repeat fixed;
+    background-size: cover;
+}
+
+* {
+    color: #ffffff;
+}
+
+a {
+    text-decoration: none;
+    border: 1px solid #ffffff;
+    padding: 0 10px;
+    border-radius: 10px;
+}
+
+span {
+    margin-left: 10px;
+}
+
+input {
+    width: 50px;
+    background: transparent;
+    border: 1px solid #ffffff;
+}
+
+.container {
+    background: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+.container>:first-child {
+    padding: 10px 20px;
+    border-bottom: 1px solid #ffffff;
+}
+
+#users {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.user {
+    position: relative;
+    flex: 1;
+    font-size: 7vmin;
+    line-height: 100%;
+    text-align: center;
+}

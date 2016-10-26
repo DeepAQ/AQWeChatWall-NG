@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>微信墙抽奖 :: {$wall.name} :: __TITLE__</title>
+    <style type="text/css">
+        body { background-image: url("__STATIC__/bg/{$wall.background?:'default.jpg'}") !important; }
+    </style>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/luckydraw.css" />
+    <script type="text/javascript" src="__STATIC__/jquery.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/luckydraw.js"></script>
+    <script type="text/javascript">
+        var user_list = {$userlist};
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div>
+            <a href="../">&lt; 返回 {$wall.name}</a>
+            <span>总人数: {$usertotal}</span>
+            <span>抽取人数: <input id="draw_num" type="number"></span>
+            <span><a id="start_stop" href="javascript:">开始抽奖</a></span>
+        </div>
+        <div id="users">
+            <div class="user"></div>
+            <div class="user"></div>
+            <div class="user"></div>
+            <div class="user"></div>
+            <div class="user"></div>
+            <div class="user"></div>
+            <div class="user"></div>
+            <div class="user"></div>
+            <div class="user"></div>
+            <div class="user"></div>
+        </div>
+    </div>
+</body>
+</html>

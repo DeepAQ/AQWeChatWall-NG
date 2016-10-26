@@ -17,6 +17,8 @@ return [
     '/[:wallid]$' => 'index/index/mobile',
     'm/[:wallid]$' => 'index/index/mobile',
     'screen/[:wallid]$' => 'index/index/screen',
+    'screen/[:wallid]/luckydraw$' => 'index/index/luckydraw',
+
     'message/get' => 'index/message/get',
     'message/post' => 'index/message/post',
     'wechat/login' => 'index/wechat/login',
