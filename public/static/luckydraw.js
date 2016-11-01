@@ -3,7 +3,7 @@ $(function () {
     $('#start_stop').click(function () {
         if (!rolling) {
             var draw_num = Number($('#draw_num').val());
-            if (!draw_num) {
+            if (!draw_num || draw_num > 10 || draw_num > user_list.length) {
                 alert("请输入正确的抽取人数!");
                 return;
             }

@@ -21,7 +21,7 @@ class Index extends Controller
             $this->error('微信墙活动不在进行中', '/');
         }
         $openid = $this->request->session('openid');
-        if (!$openid) {
+        if (!$openid || !WechatUserModel::get($openid)) {
             return $this->redirect('/wechat/login');
         } else {
             $this->assign('wall', WallConfigModel::get($wallid));

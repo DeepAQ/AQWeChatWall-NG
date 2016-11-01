@@ -18,7 +18,7 @@
         <div>
             <a href="../">&lt; 返回 {$wall.name}</a>
             <span>总人数: {$usertotal}</span>
-            <span>抽取人数: <input id="draw_num" type="number"></span>
+            <span>抽取人数: <input title="抽取人数" id="draw_num" type="number" min="0" max="{$usertotal>=10?'10':$usertotal}"></span>
             <span><a id="start_stop" href="javascript:">开始抽奖</a></span>
         </div>
         <div id="users">
