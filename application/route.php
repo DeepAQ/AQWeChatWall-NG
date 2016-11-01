@@ -17,6 +17,7 @@ return [
     '/[:wallid]$' => 'index/index/mobile',
     'm/[:wallid]$' => 'index/index/mobile',
     'screen/[:wallid]$' => 'index/index/screen',
+    'screen/luckydraw/[:wallid]$' => 'index/index/luckydraw',
     'screen/[:wallid]/luckydraw$' => 'index/index/luckydraw',
 
     'message/get' => 'index/message/get',
