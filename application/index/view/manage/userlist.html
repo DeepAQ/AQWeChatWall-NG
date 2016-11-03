@@ -1,0 +1,15 @@
+{extend name="manage/base" /}
+{block name="page_id"}userlist{/block}
+{block name="subtitle"}用户名单导出{/block}
+{block name="main"}
+<div class="container-fluid form-group">
+    <div class="alert alert-success">
+        <strong>{$wall.name}</strong> 共有 <strong>{$list|sizeof}</strong> 名用户。
+    </div>
+    <textarea title="用户名单" class="form-control" style="height: 500px;">
+{volist name="list" id="user"}
+{$user.nickname|htmlspecialchars}&nbsp;
+{/volist}
+    </textarea>
+</div>
+{/block}

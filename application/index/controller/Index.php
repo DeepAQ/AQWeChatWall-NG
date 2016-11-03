@@ -52,13 +52,13 @@ class Index extends Controller
         if ($wallid <= 0) {
             $this->error('微信墙活动不在进行中', '/');
         }
-        $result = [];
         $user_list = MessageModel::where('m.wallid', $wallid)
             ->alias('m')
             ->join('wall_user u', 'u.openid = m.openid')
             ->field('u.nickname')
             ->distinct(true)
             ->select();
+        $result = [];
         foreach ($user_list as $wall_user) {
             $result[] = htmlspecialchars($wall_user->nickname);
         }

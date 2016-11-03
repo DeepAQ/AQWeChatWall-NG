@@ -3,11 +3,13 @@
 {block name="subtitle"}消息管理{/block}
 {block name="main"}
 <div class="container-fluid">
+    <h3 style="margin-top: 0;">消息管理 - {$wall.name}</h3>
     <table class="table table-striped">
         <thead>
             <tr>
                 <th>#</th>
                 <th>时间</th>
+                <th>昵称</th>
                 <th>消息内容</th>
                 <th>选项</th>
             </tr>
@@ -15,10 +17,11 @@
         <tbody>
 {volist name="list" id="message"}
         <tr>
-            <td>{$message.id}</td>
-            <td width="180">{$message.time|date='Y-m-d H:i:s',###}</td>
+            <td width="1">{$message.id}</td>
+            <td width="170">{$message.time|date='Y-m-d H:i:s',###}</td>
+            <td width="100">{$message.nickname|htmlspecialchars}</td>
             <td style="word-break: break-all;">{$message.content|htmlspecialchars}</td>
-            <td width="150">
+            <td width="140">
                 <a href="/manage/user/?search={$message.openid}" target="_blank">查询用户</a>
                 <a href="javascript:" onclick="prompt('IP', '{$message.ip}')">IP地址</a>
             </td>

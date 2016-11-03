@@ -30,4 +30,5 @@ return [
     'manage/wall' => 'index/manage/wall',
     'manage/user' => 'index/manage/user',
     'manage/message/:wallid$' => 'index/manage/message',
+    'manage/userlist/:wallid$' => 'index/manage/userlist',
 ];

@@ -90,14 +90,36 @@ class Manage extends Controller
     public function message($wallid)
     {
         $this->checkLogin();
-        if (empty(WallConfigModel::get($wallid))) {
+        $wall = WallConfigModel::get($wallid);
+        if (empty($wall)) {
             return $this->redirect('/manage/wall');
         }
+        $this->assign('wall', $wall);
         $this->assign('list', MessageModel::where('wallid', $wallid)
-            ->order('id desc')
+            ->alias('m')
+            ->join('wall_user u', 'u.openid = m.openid')
+            ->order('m.id desc')
             ->paginate(15)
         );
         return $this->fetchTemplate('manage/message');
+    }
+
+    public function userlist($wallid)
+    {
+        $this->checkLogin();
+        $wall = WallConfigModel::get($wallid);
+        if (empty($wall)) {
+            return $this->redirect('/manage/wall');
+        }
+        $this->assign('wall', $wall);
+        $this->assign('list', MessageModel::where('m.wallid', $wallid)
+            ->alias('m')
+            ->join('wall_user u', 'u.openid = m.openid')
+            ->field('u.nickname')
+            ->distinct(true)
+            ->select()
+        );
+        return $this->fetchTemplate('manage/userlist');
     }
 
     private function checkLogin()
