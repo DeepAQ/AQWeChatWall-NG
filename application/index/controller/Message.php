@@ -28,23 +28,24 @@ class Message extends Controller
             if ($poll && time()-$start_time>=60) {
                 break;
             }
-            $list = MessageModel::where('wallid', $wallid)
-                ->where('id', '>', $offset)
-                ->field(['id', 'openid', 'content'])
-                ->order('id desc')
+            $list = MessageModel::where('m.wallid', $wallid)
+                ->where('m.id', '>', $offset)
+                ->alias('m')
+                ->join('wall_user u', 'u.openid = m.openid')
+                ->field(['m.id', 'm.content', 'u.nickname', 'u.sex', 'u.headimgurl'])
+                ->order('m.id desc')
                 ->limit($limit)
                 ->select();
         } while ($poll && sizeof($list) == 0 && sleep(1) == 0);
         // prepare results
         $result = [];
         foreach ($list as $message) {
-            $user = WechatUserModel::get($message->openid);
             $result[] = [
                 'id' => $message->id,
                 'content' => htmlspecialchars($message->content),
-                'headimgurl' => ($user && !empty($user->headimgurl)) ? $user->headimgurl : config('static_path').'/nohead.jpg',
-                'nickname' => $user ? htmlspecialchars($user->nickname) : '微信用户',
-                'sex' => $user ? $user->sex : 2,
+                'headimgurl' => !empty($message->headimgurl) ? $message->headimgurl : config('static_path').'/nohead.jpg',
+                'nickname' => htmlspecialchars($message->nickname),
+                'sex' => $message->sex,
             ];
         }
         return json(['success' => true, 'messages' => $result]);

@@ -53,12 +53,14 @@ class Index extends Controller
             $this->error('微信墙活动不在进行中', '/');
         }
         $result = [];
-        $user_list = MessageModel::where('wallid', $wallid)->field('openid')->distinct(1)->select();
+        $user_list = MessageModel::where('m.wallid', $wallid)
+            ->alias('m')
+            ->join('wall_user u', 'u.openid = m.openid')
+            ->field('u.nickname')
+            ->distinct(true)
+            ->select();
         foreach ($user_list as $wall_user) {
-            $user = WechatUserModel::get($wall_user->openid);
-            if ($user) {
-                $result[] = htmlspecialchars($user->nickname);
-            }
+            $result[] = htmlspecialchars($wall_user->nickname);
         }
         $this->assign('wall', WallConfigModel::get($wallid));
         $this->assign('userlist', json_encode($result));
