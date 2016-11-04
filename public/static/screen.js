@@ -1,4 +1,4 @@
-function poll() {
+var poll = function () {
     $.ajax('/message/get/poll/true/wallid/' + wall_id + '/offset/' + latest_id, {
         dataType: "json",
         success: function (json) {
@@ -33,12 +33,17 @@ function poll() {
             setTimeout(poll, 1000);
         }
     });
-}
+};
 
-function scrollToBottom() {
-    $('body').animate({'scrollTop': document.body.scrollHeight}, 1000);
+var scrollToBottom = function () {
+    $('body').animate({'scrollTop': document.body.scrollHeight}, 1000, function() {
+        // gc
+        while ($('.msg_list').length > 10) {
+            $('.msg_list').first().remove();
+        }
+    });
     $('#newmsg_tip').fadeOut(200);
-}
+};
 
 $(function () {
     latest_id = 0;
@@ -49,6 +54,10 @@ $(function () {
     $('body').on('dblclick', '.msg_content', function () {
         $('#big_msg').html($(this).html()).css('background', $(this).css('background'));
         $('#big_container').fadeIn(200);
+    }).on('keypress', function (e) {
+        if (e.which == 113) {
+            window.location += '/luckydraw';
+        }
     });
     poll();
 });

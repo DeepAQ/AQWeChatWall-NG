@@ -55,7 +55,7 @@ class Message extends Controller
     {
         $wallid = Utils::checkWallId($wallid);
         $openid = $this->request->session('openid');
-        if (!$openid) {
+        if (!$openid || !WechatUserModel::get($openid)) {
             return json(['success' => false, 'error' => '未登录', 'relogin' => true]);
         }
         // check content
@@ -65,6 +65,15 @@ class Message extends Controller
         }
         if (mb_strlen($content) > 200) {
             return json(['success' => false, 'error' => '内容有点长，请缩短后再发送']);
+        }
+        // anti-spam
+        $latest_msg = MessageModel::where('wallid', $wallid)
+            ->where('openid', $openid)
+            ->order('time desc')
+            ->limit(1)
+            ->select();
+        if (sizeof($latest_msg) > 0 && time()-$latest_msg[0]->time < 3) {
+            return json(['success' => false, 'error' => '发送频率过快，请稍后再尝试发送']);
         }
         // add message
         $result = MessageModel::create([
