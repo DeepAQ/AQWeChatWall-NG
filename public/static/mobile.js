@@ -19,7 +19,9 @@ $(function () {
                     if (status == 'success') {
                         if (resp.success) {
                             localStorage.removeItem('saved_content');
-                            location.reload();
+                            $('#content').val('');
+                            location.search = new Date();
+                            location.reload(true);
                         } else {
                             if (resp.relogin) {
                                 location = '/wechat/login';
