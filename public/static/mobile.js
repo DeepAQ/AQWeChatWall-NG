@@ -6,6 +6,7 @@ $(function () {
     $('#btn_send').click(function () {
         if ($(this).hasClass('disabled')) return false;
         var content = $.trim($('#content').val());
+        if (!content) return;
         // save content
         localStorage.saved_content = content;
         // post
@@ -20,8 +21,8 @@ $(function () {
                         if (resp.success) {
                             localStorage.removeItem('saved_content');
                             $('#content').val('');
-                            location.search = new Date();
-                            location.reload(true);
+                            location.search = new Date().getTime();
+                            //location.reload(true);
                         } else {
                             if (resp.relogin) {
                                 location = '/wechat/login';
