@@ -3,6 +3,19 @@ $(function () {
         $('#content').val(localStorage.saved_content);
     }
 
+    // init jsapi
+    wx.config({
+        debug: false,
+        appId: jsapi_sign.appId,
+        timestamp: jsapi_sign.timestamp,
+        nonceStr: jsapi_sign.nonceStr,
+        signature: jsapi_sign.signature,
+        jsApiList: [
+            'chooseImage',
+            'uploadImage'
+        ]
+    });
+
     $('#btn_send').click(function () {
         if ($(this).hasClass('disabled')) return false;
         var content = $.trim($('#content').val());
@@ -37,5 +50,22 @@ $(function () {
                 }
             );
         }
+    });
+
+    $('#btn_sendpic').click(function () {
+        wx.chooseImage({
+            count: 1,
+            sizeType: ['compressed'],
+            sourceType: ['album', 'camera'],
+            success: function (res) {
+                wx.uploadImage({
+                    localId: res.localIds[0],
+                    isShowProgressTips: 1,
+                    success: function (res) {
+                        alert(res.serverId);
+                    }
+                });
+            }
+        });
     });
 });

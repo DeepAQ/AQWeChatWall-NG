@@ -6,16 +6,19 @@
     <title>__TITLE__</title>
     <link rel="stylesheet" type="text/css" href="__STATIC__/mobile.css" />
     <script type="text/javascript" src="__STATIC__/jquery.min.js"></script>
-    <script type="text/javascript" src="__STATIC__/mobile.js"></script>
     <script type="text/javascript">
         var wall_id = {$wall.id};
+        var jsapi_sign = {$jsapi_sign};
     </script>
+    <script type="text/javascript" src="//res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script type="text/javascript" src="__STATIC__/mobile.js"></script>
 </head>
 <body>
     <header>{$wall.name|htmlspecialchars}</header>
     <div class="wrapper">
         <textarea id="content"></textarea>
         <div id="btn_send">发送</div>
+        <div id="btn_sendpic">发送图片</div>
     </div>
     <div id="my_messages">
         <div>我的发言(最近10条)</div>

@@ -32,6 +32,8 @@ class Index extends Controller
                     ->limit(10)
                     ->select()
             );
+            $jssdk = new WechatJSSDK(config('wechat_appid'), config('wechat_secret'));
+            $this->assign('jsapi_sign', json_encode($jssdk->getSignPackage()));
             return $this->fetchTemplate('index/mobile');
         }
     }
