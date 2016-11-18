@@ -9,6 +9,10 @@ body {
     display: none;
 }
 
+img {
+    display: block;
+}
+
 #container {
     width: 100%;
 }
@@ -24,7 +28,7 @@ body {
     width: 100%;
 }
 
-.msg_left,.msg_right {
+.msg_left, .msg_right {
     margin-left: 40px;
     margin-right: 40px;
 }
@@ -63,18 +67,23 @@ body {
 
 .msg_headimg > img {
     width: 80px;
-    height:  80px;
+    height: 80px;
 }
 
 .msg_content {
     font-size: 40px;
     color: #fff;
-    padding: 10px 20px;
+    padding: 10px 15px;
     border-radius: 20px;
     word-wrap: break-word;
     word-break: break-all;
     display: inline-block;
     text-align: left;
+}
+
+.msg_content img {
+    max-width: 30vw;
+    max-height: 30vh;
 }
 
 .msg_left .msg_content {
@@ -120,6 +129,7 @@ body {
     top: 0;
     width: 100%;
     height: 100%;
+    overflow-y: scroll;
     background: rgba(0,0,0,0.8);
     color: #fff;
     z-index: 99;
@@ -141,4 +151,9 @@ body {
     border-radius: 50px;
     word-wrap: break-word;
     word-break: break-all;
+}
+
+#big_msg img {
+    max-width: 100%;
+    max-height: 80vh;
 }

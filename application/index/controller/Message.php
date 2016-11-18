@@ -32,7 +32,7 @@ class Message extends Controller
                 ->where('m.id', '>', $offset)
                 ->alias('m')
                 ->join('wall_user u', 'u.openid = m.openid')
-                ->field(['m.id', 'm.content', 'u.nickname', 'u.sex', 'u.headimgurl'])
+                ->field(['m.id', 'm.type', 'm.content', 'u.nickname', 'u.sex', 'u.headimgurl'])
                 ->order('m.id desc')
                 ->limit($limit)
                 ->select();

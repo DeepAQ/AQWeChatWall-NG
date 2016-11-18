@@ -15,7 +15,10 @@ var poll = function () {
                     } else {
                         var msg_class = 'msg_right';
                     }
-                    msg_html += '<div class="msg ' + msg_class + '"><div class="msg_headimg"><img src="' + msg[i].headimgurl + '" /><br />' + msg[i].nickname + '</div><div class="triangle"></div><div class="msg_wrapper"><div class="msg_content">' + msg[i].content + '</div></div></div>';
+                    if (msg[i].type == 1) {
+                        msg[i].content = '<img src="/message/image/' + msg[i].content + '" />';
+                    }
+                    msg_html += '<div class="msg ' + msg_class + '"><div class="msg_headimg"><img src="' + msg[i].headimgurl + '" />' + msg[i].nickname + '</div><div class="triangle"></div><div class="msg_wrapper"><div class="msg_content">' + msg[i].content + '</div></div></div>';
                 }
                 // update view
                 latest_id = msg[0].id;
