@@ -1,17 +1,12 @@
--- Adminer 4.2.4 MySQL dump
-
-SET NAMES utf8;
-SET time_zone = '+00:00';
-
 SET NAMES utf8mb4;
 
 CREATE TABLE `wall_config` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `active` tinyint(4) NOT NULL DEFAULT '0',
   `name` varchar(255) NOT NULL,
-  `background` varchar(255) NOT NULL,
+  `background` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 
 CREATE TABLE `wall_message` (
@@ -21,8 +16,9 @@ CREATE TABLE `wall_message` (
   `ip` varchar(16) NOT NULL DEFAULT '',
   `openid` varchar(64) NOT NULL,
   `content` text NOT NULL,
+  `type` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=10160 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 
 CREATE TABLE `wall_user` (
@@ -35,6 +31,3 @@ CREATE TABLE `wall_user` (
   `headimgurl` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`openid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
-
-
--- 2016-10-20 16:20:27
