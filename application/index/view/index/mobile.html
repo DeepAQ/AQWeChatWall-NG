@@ -16,16 +16,22 @@
 <body>
     <header>{$wall.name|htmlspecialchars}</header>
     <div class="wrapper">
-        <textarea id="content"></textarea>
-        <div id="btn_send">发送</div>
+        <textarea id="content" placeholder="文字内容……"></textarea>
+        <div id="btn_send">发送文字</div>
         <div id="btn_sendpic">发送图片</div>
     </div>
     <div id="my_messages">
-        <div>我的发言(最近10条)</div>
+        <div>我发送的消息 (最近10条)</div>
         {volist name="list" id="message"}
         <section>
             <div>{$message.time|date='Y-m-d H:i:s',###}</div>
-            <div>{$message.content|htmlspecialchars}</div>
+            <div>
+                {if condition="$message.type eq 1"}
+                <img src="/message/image/{$message.content}" />
+                {else /}
+                {$message.content|htmlspecialchars}
+                {/if}
+            </div>
         </section>
         {/volist}
     </div>

@@ -22,6 +22,7 @@ return [
 
     'message/get' => 'index/message/get',
     'message/post' => 'index/message/post',
+    'message/image/:id$' => 'index/message/image',
     'wechat/login' => 'index/wechat/login',
     'wechat/authcallback' => 'index/wechat/authcallback',
 

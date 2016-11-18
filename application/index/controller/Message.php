@@ -42,6 +42,7 @@ class Message extends Controller
         foreach ($list as $message) {
             $result[] = [
                 'id' => $message->id,
+                'type' => $message->type,
                 'content' => htmlspecialchars($message->content),
                 'headimgurl' => !empty($message->headimgurl) ? $message->headimgurl : config('static_path').'/nohead.jpg',
                 'nickname' => htmlspecialchars($message->nickname),
@@ -82,12 +83,35 @@ class Message extends Controller
             'ip' => $this->request->ip(),
             'openid' => $openid,
             'content' => $content,
+            'type' => $this->request->post('type')
         ]);
         // return
         if ($result) {
             return json(['success' => true]);
         } else {
             return json(['success' => false, 'error' => '微信墙繁忙, 请稍后再尝试发送']);
+        }
+    }
+
+    public function image($id) {
+        if (!$id) return;
+        $jssdk = new WeChatSDK(config('wechat_appid'), config('wechat_secret'));
+        $access_token = $jssdk->getAccessToken();
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 20);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($ch, CURLOPT_URL, "https://api.weixin.qq.com/cgi-bin/media/get?access_token=$access_token&media_id=$id");
+        $image = curl_exec($ch);
+        $image_type = curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
+        curl_close($ch);
+
+        if (json_decode($image) == null) {
+            header('Content-Type: '.$image_type);
+            echo $image;
+            exit();
         }
     }
 }
