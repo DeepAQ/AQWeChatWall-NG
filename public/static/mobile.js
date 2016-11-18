@@ -19,6 +19,9 @@ $(function () {
 
     var post_msg = function (content, type) {
         if (!type) type = 0;
+        // save content
+        localStorage.saved_content = $.trim($('#content').val());
+
         $('#btn_send, #btn_sendpic').addClass('disabled');
         $.post('/message/post' + (wall_id ? '/wallid/'+wall_id : ''),
             {'content': content, 'type': type},
@@ -50,8 +53,6 @@ $(function () {
         if ($(this).hasClass('disabled')) return false;
         var content = $.trim($('#content').val());
         if (!content) return;
-        // save content
-        localStorage.saved_content = content;
         // post
         if (content.length > 200) {
             alert('内容有点长，请缩短后再发送');
@@ -61,6 +62,7 @@ $(function () {
     });
 
     $('#btn_sendpic').click(function () {
+        if ($(this).hasClass('disabled')) return false;
         wx.chooseImage({
             count: 1,
             sizeType: ['compressed'],
