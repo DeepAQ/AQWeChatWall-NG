@@ -12,6 +12,7 @@ namespace app\index\controller;
 use app\index\model\MessageModel;
 use app\index\model\WechatUserModel;
 use app\index\Utils;
+use think\Cache;
 use think\Controller;
 
 class Message extends Controller
@@ -110,10 +111,14 @@ class Message extends Controller
         $image_type = curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
         curl_close($ch);
 
-        if (json_decode($image) == null) {
+        $result = json_decode($image, true);
+        if ($result == null) {
             header('Content-Type: '.$image_type);
             echo $image;
             exit();
+        } else if ($result['errcode'] == 40001) {
+            Cache::set('access_token', null);
+            return $this->image($id);
         }
         return 'Image not found';
     }
