@@ -10,7 +10,7 @@ $(function () {
             // start rolling
             rolling = setInterval(function () {
                 var results = [];
-                for (var i=0; i<draw_num; i++) {
+                for (var i = 0; i < draw_num; i++) {
                     var rand = Math.floor(Math.random() * user_list.length);
                     while (results.indexOf(rand) >= 0 || $.trim(user_list[rand]) == '')
                         rand = Math.floor(Math.random() * user_list.length);

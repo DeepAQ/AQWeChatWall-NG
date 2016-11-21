@@ -140,8 +140,8 @@ img {
     font-size: 30px;
 }
 
-.big_wrapper {
-    padding: 50px 80px;
+#big_wrapper {
+    padding: 30px 80px;
 }
 
 #big_msg {

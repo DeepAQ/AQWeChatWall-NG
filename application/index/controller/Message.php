@@ -94,7 +94,9 @@ class Message extends Controller
     }
 
     public function image($id) {
-        if (!$id) return;
+        if (!$id)
+            return 'Access Denied';
+
         $jssdk = new WeChatSDK(config('wechat_appid'), config('wechat_secret'));
         $access_token = $jssdk->getAccessToken();
 
@@ -113,5 +115,6 @@ class Message extends Controller
             echo $image;
             exit();
         }
+        return 'Image not found';
     }
 }

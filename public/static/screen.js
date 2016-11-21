@@ -9,7 +9,7 @@ var poll = function () {
                 var msg = json.messages;
                 if (msg.length == 0) return;
                 var msg_html = '';
-                for (var i = msg.length-1; i >= 0; i--) {
+                for (var i = msg.length - 1; i >= 0; i--) {
                     if (msg[i].sex != 2) {
                         var msg_class = 'msg_left';
                     } else {
@@ -39,7 +39,7 @@ var poll = function () {
 };
 
 var scrollToBottom = function () {
-    $('body').animate({'scrollTop': document.body.scrollHeight}, 1000, function() {
+    $('body').animate({'scrollTop': document.body.scrollHeight}, 1000, function () {
         // gc
         while ($('.msg_list').length > 10) {
             $('.msg_list').first().remove();
@@ -51,7 +51,7 @@ var scrollToBottom = function () {
 $(function () {
     latest_id = 0;
     $('#newmsg_tip').on('click', scrollToBottom);
-    $('#big_close').on('click', function () {
+    $('#big_container').on('click', function () {
         $('#big_container').fadeOut(200);
     });
     $('body').on('dblclick', '.msg_content', function () {

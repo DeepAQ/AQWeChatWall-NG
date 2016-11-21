@@ -12,7 +12,6 @@ namespace app\index\controller;
 use app\index\model\WechatUserModel;
 use app\index\Utils;
 use think\Controller;
-use think\Exception;
 use think\Session;
 
 class Wechat extends Controller

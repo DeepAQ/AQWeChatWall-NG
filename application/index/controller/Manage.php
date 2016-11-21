@@ -26,7 +26,7 @@ class Manage extends Controller
     public function login()
     {
         if (Session::has('manage_login')) {
-            $this->redirect('/manage');
+            return $this->redirect('/manage');
         } else {
             if ($this->request->post('password')) {
                 if ($this->request->post('password') == config('manage_password')) {

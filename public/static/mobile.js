@@ -23,7 +23,7 @@ $(function () {
         localStorage.saved_content = $.trim($('#content').val());
 
         $('#btn_send, #btn_sendpic').addClass('disabled');
-        $.post('/message/post' + (wall_id ? '/wallid/'+wall_id : ''),
+        $.post('/message/post' + (wall_id ? '/wallid/' + wall_id : ''),
             {'content': content, 'type': type},
             function (resp, status) {
                 if (status == 'success') {
