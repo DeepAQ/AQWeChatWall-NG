@@ -70,6 +70,11 @@ class WeChatSDK
             // $url = "https://qyapi.weixin.qq.com/cgi-bin/get_jsapi_ticket?access_token=$accessToken";
             $url = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?type=jsapi&access_token=$accessToken";
             $res = json_decode($this->httpGet($url));
+            if ($res->errcode == 40001) {
+                $accessToken = $this->getAccessToken(true);
+                $url = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?type=jsapi&access_token=$accessToken";
+                $res = json_decode($this->httpGet($url));
+            }
             $ticket = $res->ticket;
             if ($ticket) {
                 Cache::set('jsapi_ticket', $ticket, 7000);
@@ -78,10 +83,14 @@ class WeChatSDK
         return $ticket;
     }
 
-    public function getAccessToken()
+    public function getAccessToken($force = false)
     {
         // access_token 应该全局存储与更新，以下代码以写入到文件中做示例
-        $access_token = Cache::get('access_token');
+        if (!$force) {
+            $access_token = Cache::get('access_token');
+        } else {
+            $access_token = null;
+        }
         if (!$access_token) {
             // 如果是企业号用以下URL获取access_token
             // $url = "https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=$this->appId&corpsecret=$this->appSecret";
