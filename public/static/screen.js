@@ -9,6 +9,11 @@ var poll = function () {
                 var msg = json.messages;
                 if (msg.length == 0) return;
                 var msg_html = '';
+                // init emoji convertor
+                var emoji = new EmojiConvertor();
+                emoji.img_sets.apple.sheet = static_path + '/sheet_apple_64.png';
+                emoji.use_sheet = true;
+
                 for (var i = msg.length - 1; i >= 0; i--) {
                     if (msg[i].sex != 2) {
                         var msg_class = 'msg_left';
@@ -17,9 +22,12 @@ var poll = function () {
                     }
                     if (msg[i].type == 1) {
                         msg[i].content = '<img src="/message/image/' + msg[i].content + '" />';
+                    } else {
+                        msg[i].content = emoji.replace_unified(msg[i].content);
                     }
                     msg_html += '<div class="msg ' + msg_class + '"><div class="msg_headimg"><img src="' + msg[i].headimgurl + '" />' + msg[i].nickname + '</div><div class="triangle"></div><div class="msg_wrapper"><div class="msg_content">' + msg[i].content + '</div></div></div>';
                 }
+
                 // update view
                 latest_id = msg[0].id;
                 var scrolldown = (document.body.scrollTop >= document.body.scrollHeight - window.innerHeight - 200);

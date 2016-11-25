@@ -4,13 +4,16 @@
     <meta charset="UTF-8">
     <title>大屏幕 :: {$wall.name} :: __TITLE__</title>
     <link rel="stylesheet" type="text/css" href="__STATIC__/screen.css" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/emoji.css" />
     <style type="text/css">
         body { background-image: url("__STATIC__/bg/{$wall.background?:'default.jpg'}") !important; }
     </style>
     <script type="text/javascript" src="__STATIC__/jquery.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/emoji.min.js"></script>
     <script type="text/javascript" src="__STATIC__/screen.js"></script>
     <script type="text/javascript">
         var wall_id = {$wall.id};
+        var static_path = '__STATIC__';
     </script>
 </head>
 <body>
