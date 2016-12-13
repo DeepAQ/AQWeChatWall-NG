@@ -1,3 +1,7 @@
 .idea
 composer.lock
+composer.phar
 *.log
+thinkphp
+runtime
+vendor
