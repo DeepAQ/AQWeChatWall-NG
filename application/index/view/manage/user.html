@@ -23,16 +23,17 @@
         </thead>
         <tbody>
 {volist name="list" id="user"}
-        <tr>
-            <td>{$user.nickname|htmlspecialchars}</td>
-            <td>{switch name="user.sex"}{case value="1"}男{/case}{case value="2"}女{/case}{default /}未设置{/switch}</td>
-            <td>{$user.country} {$user.province} {$user.city}</td>
-            <td>
-                <a href="{$user.headimgurl}" target="_blank">头像</a>
-                <a href="javascript:" onclick="prompt('OpenID', '{$user.openid}')">OpenID</a>
-            </td>
-        </tr>
+            <tr>
+                <td>{$user.nickname|htmlspecialchars}</td>
+                <td>{switch name="user.sex"}{case value="1"}男{/case}{case value="2"}女{/case}{default /}未设置{/switch}</td>
+                <td>{$user.country} {$user.province} {$user.city}</td>
+                <td>
+                    <a href="{$user.headimgurl}" target="_blank">头像</a>
+                    <a href="javascript:" onclick="prompt('OpenID', '{$user.openid}')">OpenID</a>
+                </td>
+            </tr>
 {/volist}
+        </tbody>
     </table>
 {$list->render()}
 </div>

@@ -35,25 +35,26 @@
                         </thead>
                         <tbody>
 {volist name="list" id="wall"}
-                        <tr>
-                            <td>{$wall.id}</td>
-                            <td>{$wall.name|htmlspecialchars}</td>
-                            <td>
-                                {$wall.active ?
-                                '<span class="label label-success"><span class="glyphicon glyphicon-ok"></span>&nbsp;开启</span>' :
-                                '<span class="label label-default"><span class="glyphicon glyphicon-remove"></span>&nbsp;关闭</span>'}
-                            <td>
-                                <form method="post" action="?op=toggle">
-                                    <input type="hidden" name="wallid" value="{$wall.id}">
+                            <tr>
+                                <td>{$wall.id}</td>
+                                <td>{$wall.name|htmlspecialchars}</td>
+                                <td>
                                     {$wall.active ?
-                                    '<button type="submit" class="btn btn-xs btn-warning"><span class="glyphicon glyphicon-pause"></span>&nbsp;关闭微信墙</button>' :
-                                    '<button type="submit" class="btn btn-xs btn-info"><span class="glyphicon glyphicon-play"></span>&nbsp;开启微信墙</button>'}
-                                    <button type="button" class="btn btn-xs btn-primary" onclick="window.location='/manage/message/'+{$wall.id};"><span class="glyphicon glyphicon-arrow-right"></span>&nbsp;消息管理</button>
-                                    <button type="button" class="btn btn-xs btn-default" onclick="window.location='/manage/userlist/'+{$wall.id};"><span class="glyphicon glyphicon-share"></span>&nbsp;导出用户名单</button>
-                                </form>
-                            </td>
-                        </tr>
+                                    '<span class="label label-success"><span class="glyphicon glyphicon-ok"></span>&nbsp;开启</span>' :
+                                    '<span class="label label-default"><span class="glyphicon glyphicon-remove"></span>&nbsp;关闭</span>'}
+                                <td>
+                                    <form method="post" action="?op=toggle">
+                                        <input type="hidden" name="wallid" value="{$wall.id}">
+                                        {$wall.active ?
+                                        '<button type="submit" class="btn btn-xs btn-warning"><span class="glyphicon glyphicon-pause"></span>&nbsp;关闭微信墙</button>' :
+                                        '<button type="submit" class="btn btn-xs btn-info"><span class="glyphicon glyphicon-play"></span>&nbsp;开启微信墙</button>'}
+                                        <button type="button" class="btn btn-xs btn-primary" onclick="window.location='/manage/message/'+{$wall.id};"><span class="glyphicon glyphicon-arrow-right"></span>&nbsp;消息管理</button>
+                                        <button type="button" class="btn btn-xs btn-default" onclick="window.location='/manage/userlist/'+{$wall.id};"><span class="glyphicon glyphicon-share"></span>&nbsp;导出用户名单</button>
+                                    </form>
+                                </td>
+                            </tr>
 {/volist}
+                        </tbody>
                     </table>
                 </div>
             </div>
